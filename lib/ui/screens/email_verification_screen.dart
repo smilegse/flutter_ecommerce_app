@@ -51,7 +51,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             CommonElevatedButtonWidget(
               title: 'Next',
               onTap: () {
-
               },
             ),
           ],
