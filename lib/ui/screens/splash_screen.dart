@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/ui/screens/email_verification_screen.dart';
 import 'package:ecommerce_app/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      Get.to(const HomeScreen());
+      Get.to(const EmailVerificationScreen());
     });
   }
 
