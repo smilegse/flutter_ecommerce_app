@@ -1,4 +1,7 @@
+import 'package:ecommerce_app/ui/screens/otp_verification_screen.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../utils/styles.dart';
 import '../widgets/common_elevated_button_widget.dart';
 import '../widgets/common_text_field_widget.dart';
@@ -51,6 +54,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             CommonElevatedButtonWidget(
               title: 'Next',
               onTap: () {
+                Get.to(const OtpVerificationScreen());
               },
             ),
           ],

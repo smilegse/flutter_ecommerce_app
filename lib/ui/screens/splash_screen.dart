@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/ui/screens/email_verification_screen.dart';
-import 'package:ecommerce_app/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import 'package:get/get.dart';
