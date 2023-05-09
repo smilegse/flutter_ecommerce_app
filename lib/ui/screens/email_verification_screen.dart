@@ -18,46 +18,48 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              height: 80,
-              width: 80,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text('Welcome Back', style: titleTextStyle),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              'Please Enter Your Email Address',
-              style: subTitleTextStyle,
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            CommonTextFieldWidget(
-              controller: TextEditingController(),
-              hintText: 'Email Address',
-              textInputType: TextInputType.emailAddress,
-              validator: (String? value) {},
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            CommonElevatedButtonWidget(
-              title: 'Next',
-              onTap: () {
-                Get.to(const OtpVerificationScreen());
-              },
-            ),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/logo.png',
+                height: 80,
+                width: 80,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Text('Welcome Back', style: titleTextStyle),
+              const SizedBox(
+                height: 4,
+              ),
+              Text(
+                'Please Enter Your Email Address',
+                style: subTitleTextStyle,
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              CommonTextFieldWidget(
+                controller: TextEditingController(),
+                hintText: 'Email Address',
+                textInputType: TextInputType.emailAddress,
+                validator: (String? value) {},
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              CommonElevatedButtonWidget(
+                title: 'Next',
+                onTap: () {
+                  Get.to(const OtpVerificationScreen());
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
