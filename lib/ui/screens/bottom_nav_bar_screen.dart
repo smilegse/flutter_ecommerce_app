@@ -34,7 +34,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
             setState(() {});
           }
         },
-        elevation: 5,
+        elevation: 8,
         selectedItemColor: primaryColor,
         unselectedItemColor: lightGreyColor,
         showUnselectedLabels: true,
@@ -47,8 +47,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home_outlined),),
           BottomNavigationBarItem(label: 'Categories', icon: Icon(Icons.grid_view_outlined),),
           BottomNavigationBarItem(label: 'Cart', icon: Icon(Icons.shopping_cart_outlined),),
-          BottomNavigationBarItem(label: 'Wishlist', icon: Icon(Icons.favorite_border_outlined),),
-
+          BottomNavigationBarItem(label: 'Wishlist', icon: Icon(Icons.favorite_border_outlined),)
         ],
       ),
     );
