@@ -1,9 +1,11 @@
-import 'package:ecommerce_app/ui/utils/styles.dart';
+
 import 'package:flutter/material.dart';
-import '../utils/app_colors.dart';
+import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
 import '../widgets/home/home_carousel_widget.dart';
+import '../widgets/home/remarks_title_widget.dart';
 import '../widgets/home/search_text_field_widget.dart';
+import '../widgets/product_card_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: Row(
@@ -40,56 +41,127 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SearchTextFieldWidget(),
-            const SizedBox(
-              height: 16,
-            ),
-            HomeCarouselWidget(),
-            const SizedBox(
-              height: 16,
-            ),
-            RemarksTitleWidget(
-              remarkName: 'Categories',
-              onTapSelectAll: () {},
-            )
-          ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              const SearchTextFieldWidget(),
+              const SizedBox(
+                height: 16,
+              ),
+              HomeCarouselWidget(),
+              const SizedBox(
+                height: 16,
+              ),
+              RemarksTitleWidget(
+                remarkName: 'Categories',
+                onTapSelectAll: () {},
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: const [
+                    CategoryCardWidget(
+                      name: 'Computer',
+                    ),
+                    CategoryCardWidget(
+                      name: 'Electronics',
+                    ),
+                    CategoryCardWidget(
+                      name: 'Clothes',
+                    ),
+                    CategoryCardWidget(
+                      name: 'Grocery',
+                    ),
+                    CategoryCardWidget(
+                      name: 'Computer',
+                    ),
+                    CategoryCardWidget(
+                      name: 'Computer',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              RemarksTitleWidget(
+                remarkName: 'Popular',
+                onTapSelectAll: () {},
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              RemarksTitleWidget(
+                remarkName: 'Special',
+                onTapSelectAll: () {},
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              RemarksTitleWidget(
+                remarkName: 'New',
+                onTapSelectAll: () {},
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                    ProductCardWidget(),
+                  ],
+                ),
+              ),
+
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class RemarksTitleWidget extends StatelessWidget {
-  const RemarksTitleWidget({
-    super.key, required this.remarkName, required this.onTapSelectAll,
-  });
 
-  final String remarkName;
-  final VoidCallback onTapSelectAll;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          remarkName,
-          style: titleTextStyle.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        TextButton(
-          onPressed: onTapSelectAll,
-          child: const Text(
-            'See all',
-            style: TextStyle(
-              color: primaryColor,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+
+
+
