@@ -1,8 +1,9 @@
-import 'package:ecommerce_app/ui/screens/bottom_nav_bar_screen.dart';
 
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import 'package:get/get.dart';
+
+import 'bottom_nav_bar_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -3,6 +3,7 @@
 // State management - Getx
 // 1. UI + Functional 2. Statement management 3. Api integration
 
+import 'package:ecommerce_app/ui/state_managers/bottom_navigation_bar_controller.dart';
 import 'package:ecommerce_app/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class CraftyBay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: GetXBinding(),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       themeMode: ThemeMode.light,
@@ -27,7 +29,6 @@ class CraftyBay extends StatelessWidget {
           color: Colors.black,
           elevation: 1,
         ),
-
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.purple,
@@ -43,6 +44,11 @@ class CraftyBay extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           color: Colors.white,
           elevation: 1,
+          titleTextStyle: TextStyle(
+            color: greyColor,
+            fontWeight: FontWeight.w500,
+            fontSize: 18
+          ),
         ),
         scaffoldBackgroundColor: Colors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -55,7 +61,20 @@ class CraftyBay extends StatelessWidget {
           ),
         ),
       ),
-
     );
   }
 }
+
+class GetXBinding extends Bindings{
+  @override
+  void dependencies() {
+    Get.put(BottomNavigationBarController());
+
+  }
+
+}
+
+
+
+
+
