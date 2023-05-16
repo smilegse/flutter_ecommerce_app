@@ -8,7 +8,7 @@ class WishListScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Column(
-            children: [
+            children: const [
               Text('Wishlist'),
             ],
           )

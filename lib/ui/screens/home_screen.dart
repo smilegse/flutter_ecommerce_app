@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../state_managers/bottom_navigation_bar_controller.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
 import '../widgets/home/home_carousel_widget.dart';
@@ -55,7 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               RemarksTitleWidget(
                 remarkName: 'Categories',
-                onTapSelectAll: () {},
+                onTapSelectAll: () {
+                  Get.find<BottomNavigationBarController>().changeIndex(1);
+                },
               ),
               const SizedBox(
                 height: 8,
@@ -98,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
+                  children: const [
                     ProductCardWidget(),
                     ProductCardWidget(),
                     ProductCardWidget(),
@@ -120,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
+                  children:const [
                     ProductCardWidget(),
                     ProductCardWidget(),
                     ProductCardWidget(),
@@ -142,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
+                  children: const [
                     ProductCardWidget(),
                     ProductCardWidget(),
                     ProductCardWidget(),
