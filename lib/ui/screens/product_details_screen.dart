@@ -97,20 +97,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       const SizedBox(
                                         width: 4,
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: Icon(
-                                            Icons.favorite_border,
-                                            size: 16,
-                                            color: Colors.white,
+                                      SizedBox(
+                                        height: 30,
+                                        width: 30,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            padding: EdgeInsets.zero,
                                           ),
+                                          onPressed: () {},
+                                          child: const Icon(Icons.favorite_border,),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ],
