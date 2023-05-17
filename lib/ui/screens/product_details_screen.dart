@@ -1,4 +1,6 @@
+import 'package:ecommerce_app/ui/screens/reviews_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../utils/app_colors.dart';
 import '../utils/styles.dart';
 import '../widgets/common_elevated_button_widget.dart';
@@ -85,7 +87,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         width: 8,
                                       ),
                                       TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(const ReviewsListScreen());
+                                        },
                                         child: const Text(
                                           'Reviews',
                                           style: TextStyle(
@@ -229,9 +233,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                           textAlign: TextAlign.justify,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: lightGreyColor,
+                            letterSpacing: 1.1
                           ),
                         ),
                       ],
@@ -262,7 +267,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fontWeight: FontWeight.w500,
                         color: greyColor,
                       ),),
-                      Text('\$100', style: TextStyle(
+                      Text('\৳ 100', style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: primaryColor,
