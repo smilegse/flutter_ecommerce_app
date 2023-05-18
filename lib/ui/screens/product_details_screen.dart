@@ -164,7 +164,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           }).toList(),
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 16,
                         ),
                         const Text(
                           'Size',
@@ -247,6 +247,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ),
           Container(
+            margin: const EdgeInsets.only(top: 16),
             decoration: BoxDecoration(
               color: primaryColor.withOpacity(0.15),
               borderRadius: const BorderRadius.only(

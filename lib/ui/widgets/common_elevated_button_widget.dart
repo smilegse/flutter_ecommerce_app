@@ -1,17 +1,16 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
 
 class CommonElevatedButtonWidget extends StatelessWidget {
   const CommonElevatedButtonWidget({
-    super.key, required this.title, required this.onTap,
+    super.key,
+    required this.title,
+    required this.onTap,
   });
 
   final String title;
   final VoidCallback onTap;
-
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +20,16 @@ class CommonElevatedButtonWidget extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // <-- Radius
+          ),
         ),
-        child: Text(title,
+        child: Text(
+          title,
           style: const TextStyle(
-              fontWeight: FontWeight.w500, letterSpacing: 0.6),
+            fontWeight: FontWeight.w500,
+            letterSpacing: 0.6,
+          ),
         ),
       ),
     );

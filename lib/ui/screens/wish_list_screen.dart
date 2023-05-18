@@ -10,25 +10,27 @@ class WishListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Wish List'),
-        leading: IconButton(
-          onPressed: () {
-            Get.find<BottomNavigationBarController>().backToHome();
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Wish List'),
+          leading: IconButton(
+            onPressed: () {
+              Get.find<BottomNavigationBarController>().backToHome();
+            },
+            icon: const Icon(Icons.arrow_back_outlined, color: greyColor,),
+          ),
+        ),
+        body: GridView.builder(
+          itemCount: 7,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 0.7,
+          ),
+          itemBuilder: (context, index) {
+            return const ProductCardWidget();
           },
-          icon: const Icon(Icons.arrow_back_outlined, color: greyColor,),
         ),
-      ),
-      body: GridView.builder(
-        itemCount: 7,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 0.7,
-        ),
-        itemBuilder: (context, index) {
-          return const ProductCardWidget();
-        },
       ),
     );
   }
