@@ -1,4 +1,5 @@
 
+import 'package:ecommerce_app/ui/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
@@ -28,7 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
             const Spacer(),
             AppBarIconButton(
               iconData: Icons.person,
-              onTap: () {},
+              onTap: () {
+                Get.to(UserProfileScreen());
+              },
             ),
             AppBarIconButton(
               iconData: Icons.call,

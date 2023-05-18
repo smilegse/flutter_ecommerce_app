@@ -25,14 +25,11 @@ class ReviewListItemWidget extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey.shade200,
-                        child: const Icon(
-                          Icons.person,
-                          color: lightGreyColor,
-                        ),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey.shade200,
+                      child: const Icon(
+                        Icons.person,
+                        color: lightGreyColor,
                       ),
                     ),
                   ],
