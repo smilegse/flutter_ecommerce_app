@@ -1,5 +1,5 @@
 
-import 'package:ecommerce_app/ui/screens/user_profile_screen.dart';
+import 'package:ecommerce_app/ui/screens/email_verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             AppBarIconButton(
               iconData: Icons.person,
               onTap: () {
-                Get.to(UserProfileScreen());
+                Get.to(const EmailVerificationScreen());
               },
             ),
             AppBarIconButton(

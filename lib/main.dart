@@ -4,6 +4,7 @@
 // 1. UI + Functional 2. Statement management 3. Api integration
 
 import 'package:ecommerce_app/ui/state_managers/bottom_navigation_bar_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/user_auth_controller.dart';
 import 'package:ecommerce_app/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,6 +70,7 @@ class GetXBinding extends Bindings{
   @override
   void dependencies() {
     Get.put(BottomNavigationBarController());
+    Get.put(UserAuthController());
 
   }
 
