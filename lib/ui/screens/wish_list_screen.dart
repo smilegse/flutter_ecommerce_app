@@ -28,7 +28,7 @@ class WishListScreen extends StatelessWidget {
             childAspectRatio: 0.7,
           ),
           itemBuilder: (context, index) {
-            return const ProductCardWidget();
+            return ProductCardWidget();
           },
         ),
       ),

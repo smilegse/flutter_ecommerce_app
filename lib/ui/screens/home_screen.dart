@@ -2,6 +2,7 @@
 import 'package:ecommerce_app/ui/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
@@ -18,6 +19,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  _makingPhoneCall() async {
+    var url = Uri.parse("tel:01780494949");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             AppBarIconButton(
               iconData: Icons.call,
-              onTap: () {},
+              onTap: ()  {
+                _makingPhoneCall();
+              },
             ),
             AppBarIconButton(
               iconData: Icons.notifications_none,
@@ -105,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children: [
                     ProductCardWidget(),
                     ProductCardWidget(),
                     ProductCardWidget(),
@@ -127,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children:const [
+                  children: [
                     ProductCardWidget(),
                     ProductCardWidget(),
                     ProductCardWidget(),
@@ -149,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children: [
                     ProductCardWidget(),
                     ProductCardWidget(),
                     ProductCardWidget(),

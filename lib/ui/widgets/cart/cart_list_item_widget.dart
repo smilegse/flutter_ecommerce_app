@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../utils/app_colors.dart';
 import '../../utils/styles.dart';
 import '../product_stepper_widget.dart';
 
 class CartListItemWidget extends StatelessWidget {
-  const CartListItemWidget({
+  CartListItemWidget({
     super.key,
   });
 
-  // final String productImagePath;
-  // final String productName;
-  // final String color;
-  // final String size;
-  // final String price;
-  // final String qty;
+  final formatter = NumberFormat.decimalPattern();
+
+  final String productImagePath = 'assets/images/dummy_shoe.png';
+  final String productName = 'Adidas Casual Shoe A1983';
+  final String color = 'Red';
+  final String size = '41';
+  final double price = 4999;
+  final String qty = '1';
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +28,10 @@ class CartListItemWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8),
-                child: Image.asset(
-                  'assets/images/dummy_shoe.png',
+                child: Image.asset(productImagePath,
                   fit: BoxFit.cover,
-                  width: 80,
+                  width: 110,
+                  height: 80,
                 ),
               ),
             ],
@@ -44,18 +47,17 @@ class CartListItemWidget extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Adidas Casual Shoe A1983',
+                            Text(productName,
                               style: titleTextStyle.copyWith(
-                                  fontSize: 16,
-                                  color: greyColor
+                                  fontSize: 14,
+                                  color: greyColor.withOpacity(0.8),
                               ),
                             ),
                             Text(
-                              'Color: Red, Size: 41',
+                              'Color: $color, Size: $size',
                               style: subTitleTextStyle.copyWith(
                                   fontSize: 12,
-                                  color: greyColor
+                                  color: greyColor.withOpacity(0.8),
                               ),
                             ),
                           ],
@@ -76,14 +78,14 @@ class CartListItemWidget extends StatelessWidget {
                   const SizedBox(height: 16,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Text('\৳ 100', style: TextStyle(
+                    children: [
+                      Text('৳${formatter.format(price)}', style: const TextStyle(
                         fontSize: 18,
                         color: primaryColor,
                         fontWeight: FontWeight.w600,
                       ),),
-                      Spacer(),
-                      ProductStepperWidget(),
+                      const Spacer(),
+                      const ProductStepperWidget(),
                     ],
                   ),
                 ],

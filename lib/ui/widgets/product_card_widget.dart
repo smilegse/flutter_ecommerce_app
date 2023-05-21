@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../screens/product_details_screen.dart';
 import '../utils/app_colors.dart';
 
 class ProductCardWidget extends StatelessWidget {
-  const ProductCardWidget({
+  ProductCardWidget({
     super.key,
   });
+
+  final formatter = NumberFormat.decimalPattern();
+  final double price = 4999;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 130,
+      width: 124,
       child: InkWell(
         onTap: () {
           Get.to(const ProductDetailsScreen());
@@ -28,8 +32,8 @@ class ProductCardWidget extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/dummy_shoe.png',
-                width: 120,
-                height: 90,
+                width: 110,
+                height: 80,
                 fit: BoxFit.cover,
 
               ),
@@ -51,16 +55,13 @@ class ProductCardWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          '\$ 340',
-                          style: TextStyle(
+                        Text(
+                          '৳${formatter.format(price)}',
+                          style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               color: primaryColor
                           ),
-                        ),
-                        const SizedBox(
-                          width: 4,
                         ),
                         Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
@@ -73,17 +74,14 @@ class ProductCardWidget extends StatelessWidget {
                             ),),
                           ],
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
                         Container(
                           decoration: BoxDecoration(
                             color: primaryColor,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(4),
                           ),
                           child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(Icons.favorite_border, size: 14, color: Colors.white,),
+                            padding: EdgeInsets.all(2.0),
+                            child: Icon(Icons.favorite_border, size: 16, color: Colors.white,),
                           ),
                         )
                       ],

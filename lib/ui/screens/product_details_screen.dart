@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/ui/screens/reviews_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../utils/app_colors.dart';
 import '../utils/styles.dart';
 import '../widgets/common_elevated_button_widget.dart';
@@ -23,10 +24,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     Color(0xFF8A8A8A)
   ];
 
+  final formatter = NumberFormat.decimalPattern();
   List<String> sizes = const ['39', '40', '41', '42', '43'];
 
   Color _selectedColor = const Color(0xFF000000);
   String _selectedSize = '41';
+  double _totalPrice = 49999;
 
   @override
   Widget build(BuildContext context) {
@@ -102,14 +105,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         width: 4,
                                       ),
                                       SizedBox(
-                                        height: 30,
-                                        width: 30,
+                                        height: 20,
+                                        width: 20,
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.zero,
+                                            padding: const EdgeInsets.all(2),
                                           ),
                                           onPressed: () {},
-                                          child: const Icon(Icons.favorite_border,),
+                                          child: const Icon(Icons.favorite_border,size: 16,),
                                         ),
                                       ),
                                     ],
@@ -262,17 +265,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Price', style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: greyColor,
-                      ),),
-                      Text('\৳ 100', style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: primaryColor,
-                      ),)
+                    children: [
+                      const Text('Price',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: greyColor,
+                        ),
+                      ),
+                      Text('৳${formatter.format(_totalPrice)}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: primaryColor,
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(

@@ -4,9 +4,13 @@ import '../state_managers/bottom_navigation_bar_controller.dart';
 import '../utils/app_colors.dart';
 import '../widgets/cart/cart_list_item_widget.dart';
 import '../widgets/common_elevated_button_widget.dart';
+import 'package:intl/intl.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
+  CartScreen({Key? key}) : super(key: key);
+
+  final formatter = NumberFormat.decimalPattern();
+  final double totalAmount = 50000;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,8 @@ class CartScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 8,
                 itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: CartListItemWidget(),
                   );
                 },
@@ -51,8 +55,8 @@ class CartScreen extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'Total Price',
                           style: TextStyle(
                             fontSize: 14,
@@ -60,11 +64,13 @@ class CartScreen extends StatelessWidget {
                             color: greyColor,
                           ),
                         ),
-                        Text('\৳ 10000.00', style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: primaryColor,
-                        ),)
+                        Text('৳${formatter.format(totalAmount)}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: primaryColor,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(

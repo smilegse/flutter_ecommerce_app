@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ProductStepperWidget extends StatefulWidget {
@@ -15,7 +14,6 @@ class _ProductStepperWidgetState extends State<ProductStepperWidget> {
   @override
   void initState() {
     super.initState();
-
     _stepperTEController = TextEditingController(text: '1');
   }
 
@@ -23,59 +21,58 @@ class _ProductStepperWidgetState extends State<ProductStepperWidget> {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        SizedBox(
-          height: 30,
-          width: 30,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ),
-            onPressed: () {
-              if (_currentValue > 1) {
-                _currentValue--;
-                _stepperTEController.text = _currentValue.toString();
-              }
-            },
-            child: const Icon(Icons.remove,size: 20,),
-          ),
+        stepperButton(
+          () {
+            if (_currentValue > 1) {
+              _currentValue--;
+              _stepperTEController.text = _currentValue.toString();
+            }
+          },
+          Icons.remove,
         ),
         SizedBox(
-          width: 50,
-          height: 28,
+          width: 45,
+          height: 22,
           child: TextField(
             controller: _stepperTEController,
             enabled: false,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
             ),
             decoration: const InputDecoration(
               border: OutlineInputBorder(borderSide: BorderSide.none),
             ),
           ),
         ),
-        SizedBox(
-          height: 30,
-          width: 30,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ),
-            onPressed: () {
-              if (_currentValue < 20) {
-                _currentValue++;
-                _stepperTEController.text = _currentValue.toString();
-              }
-            },
-            child: const Icon(
-              Icons.add,
-              size: 20,
-            ),
-          ),
+        stepperButton(
+          () {
+            if (_currentValue < 20) {
+              _currentValue++;
+              _stepperTEController.text = _currentValue.toString();
+            }
+          },
+          Icons.add,
         ),
-
       ],
     );
   }
+}
+
+Widget stepperButton(VoidCallback onTap, IconData iconData) {
+  return SizedBox(
+    height: 20,
+    width: 20,
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.zero,
+      ),
+      onPressed: onTap,
+      child: Icon(
+        iconData,
+        size: 15,
+      ),
+    ),
+  );
 }
