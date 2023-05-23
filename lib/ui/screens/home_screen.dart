@@ -1,5 +1,7 @@
 
+import 'package:ecommerce_app/data/utils/auth_utils.dart';
 import 'package:ecommerce_app/ui/screens/email_verification_screen.dart';
+import 'package:ecommerce_app/ui/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,20 +31,25 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset('assets/images/logo_nav.png'),
             const Spacer(),
             AppBarIconButton(
               iconData: Icons.person,
-              onTap: () {
-                Get.to(const EmailVerificationScreen());
+              onTap: () async {
+                if(await AuthUtils.checkLoginState()){
+                  Get.to(const UserProfileScreen());
+                }else {
+                  Get.to(const EmailVerificationScreen());
+                }
               },
             ),
             AppBarIconButton(
