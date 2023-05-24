@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/models/profile_model.dart';
 
 class AuthController extends GetxController {
@@ -8,8 +8,7 @@ class AuthController extends GetxController {
   static ProfileData? _profileData;
 
   static String? get token => _token;
-
-  static ProfileData? get profile => _profileData;
+  static ProfileData? get profileData => _profileData;
 
   Future<bool> isLoggedIn() async {
     await getToken();
@@ -18,31 +17,31 @@ class AuthController extends GetxController {
   }
 
   Future<void> saveToken(String userToken) async {
-    // SharedPreferences preference = await SharedPreferences.getInstance();
-    // _token = userToken;
-    // await preference.setString('crafty_token', userToken);
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    _token = userToken;
+    preference.setString('token', userToken);
   }
 
   Future<void> saveProfileData(ProfileData profile) async {
-    // SharedPreferences preference = await SharedPreferences.getInstance();
-    // _profileData = profile;
-    // await preference.setString('user_profile', profile.toJson().toString());
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    _profileData = profile;
+    await preference.setString('user_profile', profile.toJson().toString());
   }
 
   Future<void> getToken() async {
-    // SharedPreferences preference = await SharedPreferences.getInstance();
-    // _token = preference.getString('crafty_token');
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    _token = preference.getString('token');
   }
 
   Future<void> getProfileData() async {
-    // SharedPreferences preference = await SharedPreferences.getInstance();
-    // _profileData = ProfileData.fromJson(
-    //   jsonDecode(preference.getString('user_profile') ?? '{}'),
-    // );
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    _profileData = ProfileData.fromJson(
+      jsonDecode(preference.getString('user_profile') ?? '{}'),
+    );
   }
 
   Future<void> clearUserData() async {
-    // SharedPreferences preference = await SharedPreferences.getInstance();
-    // await preference.clear();
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    await preference.clear();
   }
 }

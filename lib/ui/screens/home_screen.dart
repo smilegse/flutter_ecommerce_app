@@ -1,10 +1,7 @@
-
-import 'package:ecommerce_app/data/utils/auth_utils.dart';
-import 'package:ecommerce_app/ui/screens/email_verification_screen.dart';
-import 'package:ecommerce_app/ui/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../state_managers/auth_controller.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
@@ -12,6 +9,8 @@ import '../widgets/home/home_carousel_widget.dart';
 import '../widgets/home/remarks_title_widget.dart';
 import '../widgets/home/search_text_field_widget.dart';
 import '../widgets/product_card_widget.dart';
+import 'email_verification_screen.dart';
+import 'user_profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   _makingPhoneCall() async {
     var url = Uri.parse("tel:01780494949");
     if (await canLaunchUrl(url)) {
@@ -29,6 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -44,17 +47,19 @@ class _HomeScreenState extends State<HomeScreen> {
             const Spacer(),
             AppBarIconButton(
               iconData: Icons.person,
-              onTap: () async {
-                if(await AuthUtils.checkLoginState()){
-                  Get.to(const UserProfileScreen());
-                }else {
-                  Get.to(const EmailVerificationScreen());
-                }
+              onTap: () {
+                Get.find<AuthController>().isLoggedIn().then((value) {
+                  if (value) {
+                    Get.to(const UserProfileScreen());
+                  } else {
+                    Get.to(const EmailVerificationScreen());
+                  }
+                });
               },
             ),
             AppBarIconButton(
               iconData: Icons.call,
-              onTap: ()  {
+              onTap: () {
                 _makingPhoneCall();
               },
             ),
@@ -88,10 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 8,
               ),
-              SingleChildScrollView(
+              const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children: [
                     CategoryCardWidget(
                       name: 'Computer',
                     ),
@@ -179,7 +184,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
@@ -187,9 +191,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
-
-
-

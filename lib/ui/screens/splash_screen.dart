@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/data/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import 'package:get/get.dart';
@@ -17,11 +16,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2)).then((value) async {
-        if (await AuthUtils.checkLoginState()) {
-          await AuthUtils.getAuthData();
-        } else {
-          await AuthUtils.clearData();
-        }
         Get.off(const BottomNavBarScreen());
       },
     );
@@ -41,8 +35,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
           ),
-          Column(
-            children: const [
+          const Column(
+            children: [
               CircularProgressIndicator(
                 color: primaryColor,
               ),

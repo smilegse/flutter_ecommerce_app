@@ -1,8 +1,8 @@
 import 'dart:developer';
-
-import 'package:ecommerce_app/data/utils/auth_utils.dart';
 import 'package:ecommerce_app/ui/screens/home_screen.dart';
+import 'package:ecommerce_app/ui/state_managers/auth_controller.dart';
 import 'package:ecommerce_app/ui/state_managers/user_auth_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/user_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -28,8 +28,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<UserAuthController> (
-          builder: (userAuthController) {
+      body: GetBuilder<UserAuthController>(builder: (userAuthController) {
         return Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
@@ -82,7 +81,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   validator: (input) {
                     if (input!.isEmpty) {
                       return 'Otp is empty';
-                    }else if(input.length <4){
+                    } else if (input.length < 4) {
                       return 'Input full OTP number';
                     }
                     return null;
@@ -94,65 +93,46 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       blurRadius: 10,
                     )
                   ],
-                  onCompleted: (value) {
-
-                  },
+                  onCompleted: (value) {},
                   onChanged: (value) {},
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                userAuthController.otpVerificationInProgress
-                    ? const CircularProgressIndicator()
-                    : CommonElevatedButtonWidget(
-                        title: 'Next',
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            final response = await userAuthController.otpVerification(widget.email, _otpTEController.text);
-                            if (response) {
-                              // final userProfileResponse = await userAuthController.isUserProfileExists();
-                              // if (userProfileResponse) {
-                              //   if (userAuthController.userProfileModel.users!.isNotEmpty) {
-                              //     if(mounted) {
-                              //       Get.off(const HomeScreen());
-                              //     }
-                              //   } else {
-                              //     if(mounted) {
-                              //       Get.off(const CompleteProfileScreen());
-                              //     }
-                              //   }
-                              // } else {
-                              //   log(AuthUtils.token.toString());
-                              //   if (mounted) {
-                              //     Get.showSnackbar(
-                              //       const GetSnackBar(
-                              //         title: 'User Profile Read Failed',
-                              //         message:
-                              //             'There is something wrong to read user profile, Try once again.',
-                              //         duration: Duration(
-                              //           seconds: 3,
-                              //         ),
-                              //       ),
-                              //     );
-                              //   }
-                              // }
-                            } else {
-                              if (mounted) {
-                                Get.showSnackbar(
-                                  const GetSnackBar(
-                                    title: 'Otp Verification Failed',
-                                    message:
-                                        'Check once again before enter your OTP',
-                                    duration: Duration(
-                                      seconds: 3,
-                                    ),
-                                  ),
-                                );
-                              }
-                            }
+                if (userAuthController.otpVerificationInProgress)
+                  const CircularProgressIndicator()
+                else
+                  CommonElevatedButtonWidget(
+                    title: 'Next',
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final response = await userAuthController.otpVerification(widget.email, _otpTEController.text);
+                        if (response) {
+                          //await Get.find<UserProfileController>().getProfileData();
+                          await AuthController().getProfileData();
+                          //log(AuthController.profileData as String);
+                          if (AuthController.profileData != null) {
+                            Get.off(const HomeScreen());
+                          } else {
+                            Get.off(const CompleteProfileScreen());
                           }
-                        },
-                      ),
+                        } else {
+                          if (mounted) {
+                            Get.showSnackbar(
+                              const GetSnackBar(
+                                title: 'Otp Verification Failed',
+                                message:
+                                    'Check once again before enter your OTP',
+                                duration: Duration(
+                                  seconds: 3,
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      }
+                    },
+                  ),
                 const SizedBox(
                   height: 16,
                 ),

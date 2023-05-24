@@ -1,8 +1,7 @@
-
-import 'package:ecommerce_app/ui/state_managers/auth_controller.dart';
 import 'package:get/get.dart';
 import '../../data/models/profile_model.dart';
 import '../../data/services/network_caller.dart';
+import 'auth_controller.dart';
 
 class UserProfileController extends GetxController {
   bool _getProfileDataInProgress = false;
@@ -19,7 +18,7 @@ class UserProfileController extends GetxController {
       if (profileModel.data != null) {
         Get.find<AuthController>().saveProfileData(profileModel.data!.first);
       } else {
-        // Get.to('CompleteProfile');
+        //Get.to(const EmailVerificationScreen());
       }
       update();
       return true;
@@ -28,4 +27,5 @@ class UserProfileController extends GetxController {
       return false;
     }
   }
+
 }

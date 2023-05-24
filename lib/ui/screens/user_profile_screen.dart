@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../data/utils/auth_utils.dart';
-import '../state_managers/user_profile_controller.dart';
+import '../state_managers/auth_controller.dart';
 import '../utils/app_colors.dart';
 import '../utils/styles.dart';
 import '../widgets/common_elevated_button_widget.dart';
@@ -31,9 +30,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const TextField(
-                  enabled: false,
-                ),
                 SizedBox(
                   height: 100,
                   width: 100,
@@ -50,7 +46,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   height: 16,
                 ),
                 Text(
-                  '${AuthUtils.firstName}  ${AuthUtils.lastName}',
+                  '${AuthController.profileData?.firstName ?? 'Unknown'}  ${AuthController.profileData?.lastName ?? 'Unknown'}',
                   style: titleTextStyle,
                 ),
                 const SizedBox(
@@ -68,7 +64,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   height: 8,
                 ),
                 Text(
-                  '${AuthUtils.shippingAddress} }',
+                  '${AuthController.profileData?.shippingAddress ?? 'Unknown'} }',
                   style: const TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
@@ -76,21 +72,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   height: 16,
                 ),
                 Text(
-                  'City: ${AuthUtils.city}',
+                  'City: ${AuthController.profileData?.city ?? 'Unknown'}',
                   style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 Text(
-                  'Email: ${AuthUtils.email}',
+                  'Email: ${AuthController.profileData?.email ?? 'Unknown'}',
                   style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 Text(
-                  'Mobile: ${AuthUtils.mobile}',
+                  'Mobile: ${AuthController.profileData?.mobile ?? 'Unknown'}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: greyColor,
@@ -105,8 +101,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
                 CommonElevatedButtonWidget(
                   title: 'Logout',
-                  onTap: () async {
-                    await AuthUtils.clearData();
+                  onTap: () {
+                    Get.find<AuthController>().clearUserData();
                     Get.to(const HomeScreen());
                   },
                 ),
