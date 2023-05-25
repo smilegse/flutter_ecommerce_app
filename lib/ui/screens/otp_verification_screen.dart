@@ -108,11 +108,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         if (response) {
                           Get.find<UserProfileController>().getProfileData().then((value) {
                             if (value) {
-                              Get.to(const CompleteProfileScreen());
+                              Get.off(const CompleteProfileScreen());
                             } else {
-                              Get.to(const HomeScreen());
+                              Get.off(const HomeScreen());
                             }
                           });
+                          // Get.to(const HomeScreen());
                         } else {
                           if (mounted) {
                             Get.showSnackbar(

@@ -15,6 +15,7 @@ import 'ui/state_managers/home_controller.dart';
 import 'ui/state_managers/new_products_controller.dart';
 import 'ui/state_managers/product_controller.dart';
 import 'ui/state_managers/product_details_controller.dart';
+import 'ui/state_managers/see_all_product_by_remark_controller.dart';
 import 'ui/state_managers/special_products_controller.dart';
 import 'ui/state_managers/user_auth_controller.dart';
 import 'ui/state_managers/user_profile_controller.dart';
@@ -91,6 +92,7 @@ class GetXBinding extends Bindings{
     Get.put(ProductController());
     Get.put(ProductDetailsController());
     Get.put(WishListController());
+    Get.put(SeeAllProductByRemarkController());
 
   }
 

@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../data/models/profile_model.dart';
+import '../../data/models/profile.dart';
 import '../screens/email_verification_screen.dart';
 
 class AuthController extends GetxController {
   static String? _token;
-  static ProfileData? _profileData;
+  static Profile? _profileData;
 
   static String? get token => _token;
-  static ProfileData? get profileData => _profileData;
+  static Profile? get profileData => _profileData;
 
   Future<bool> isLoggedIn() async {
     await getToken();
@@ -23,7 +23,7 @@ class AuthController extends GetxController {
     preference.setString('token', userToken);
   }
 
-  Future<void> saveProfileData(ProfileData profile) async {
+  Future<void> saveProfileData(Profile profile) async {
     SharedPreferences preference = await SharedPreferences.getInstance();
     _profileData = profile;
     await preference.setString('user_profile', profile.toJson().toString());
@@ -36,7 +36,7 @@ class AuthController extends GetxController {
 
   Future<void> getProfileData() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    _profileData = ProfileData.fromJson(
+    _profileData = Profile.fromJson(
       jsonDecode(preference.getString('user_profile') ?? '{}'),
     );
   }

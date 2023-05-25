@@ -19,8 +19,8 @@ class ProductByCategoryModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['msg'] = msg;
-    if (this.products != null) {
-      data['data'] = this.products!.map((v) => v.toJson()).toList();
+    if (products != null) {
+      data['data'] = products!.map((v) => v.toJson()).toList();
     }
     return data;
   }

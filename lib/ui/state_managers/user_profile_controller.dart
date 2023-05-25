@@ -24,9 +24,9 @@ class UserProfileController extends GetxController {
       update();
       return true;
     } else {
-      if (response.statusCode == 401) {
-        Get.find<AuthController>().logOut();
-      }
+      // if (response.statusCode == 401) {
+      //   Get.find<AuthController>().logOut();
+      // }
       update();
       return false;
     }

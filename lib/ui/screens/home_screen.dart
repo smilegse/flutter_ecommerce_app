@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ecommerce_app/ui/screens/product_see_all_by_remark_screen.dart';
 import 'package:ecommerce_app/ui/state_managers/home_controller.dart';
 import 'package:ecommerce_app/ui/state_managers/new_products_controller.dart';
 import 'package:ecommerce_app/ui/state_managers/popular_products_controller.dart';
@@ -140,7 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               RemarksTitleWidget(
                 remarkName: 'Popular',
-                onTapSelectAll: () {},
+                onTapSelectAll: () {
+                  Get.to(const ProductSeeAllByRemarkScreen(remark: 'Popular'));
+                },
               ),
               const SizedBox(
                 height: 16,
@@ -170,7 +173,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               RemarksTitleWidget(
                 remarkName: 'Special',
-                onTapSelectAll: () {},
+                onTapSelectAll: () {
+                  Get.to(const ProductSeeAllByRemarkScreen(remark: 'Special'));
+                },
               ),
               const SizedBox(
                 height: 16,
@@ -200,7 +205,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               RemarksTitleWidget(
                 remarkName: 'New',
-                onTapSelectAll: () {},
+                onTapSelectAll: () {
+                  Get.to(const ProductSeeAllByRemarkScreen(remark: 'New'));
+                },
               ),
               const SizedBox(
                 height: 16,

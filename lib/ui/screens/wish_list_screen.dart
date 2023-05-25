@@ -1,11 +1,25 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../state_managers/bottom_navigation_bar_controller.dart';
+import '../state_managers/wish_list_controller.dart';
 import '../utils/app_colors.dart';
+import '../widgets/product_card_widget.dart';
 
-class WishListScreen extends StatelessWidget {
+class WishListScreen extends StatefulWidget {
   const WishListScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WishListScreen> createState() => _WishListScreenState();
+}
+
+class _WishListScreenState extends State<WishListScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<WishListController>().getWishlist();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +34,28 @@ class WishListScreen extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_outlined, color: greyColor,),
           ),
         ),
-        body: GridView.builder(
-          itemCount: 7,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 0.7,
-          ),
-          itemBuilder: (context, index) {
-            return Text('product cart widget goes to here'); //ProductCardWidget(product: ,);
-          },
+        body: GetBuilder<WishListController>(
+          builder: (wishListController) {
+            if(wishListController.getWishListInProgress){
+              return const SizedBox(
+                height: 90,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, childAspectRatio: 0.75),
+              itemCount:
+              wishListController.wishListModel.wishes?.length ?? 0,
+              itemBuilder: (context, index) {
+                return ProductCardWidget(
+                  product: wishListController.wishListModel.wishes![index].product!,
+                );
+              },
+            );
+          }
         ),
       ),
     );
