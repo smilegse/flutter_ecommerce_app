@@ -1,11 +1,15 @@
 import 'dart:developer';
 
 import 'package:ecommerce_app/ui/state_managers/home_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/new_products_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/popular_products_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/special_products_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../state_managers/auth_controller.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
+import '../state_managers/category_controller.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
 import '../widgets/home/home_carousel_widget.dart';
@@ -85,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 16,
               ),
               GetBuilder<HomeController>(builder: (homeController) {
-                if(homeController.getSliderInProgress){
+                if (homeController.getSliderInProgress) {
                   return const SizedBox(
                     height: 180,
                     child: Center(
@@ -93,11 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 }
-                  return HomeCarouselWidget(
-                    homeSliderModel: homeController.homeSliderModel,
-                  );
-                }
-              ),
+                return HomeCarouselWidget(
+                  homeSliderModel: homeController.homeSliderModel,
+                );
+              }),
               const SizedBox(
                 height: 16,
               ),
@@ -110,31 +113,28 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 8,
               ),
-              const SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    CategoryCardWidget(
-                      name: 'Computer',
+              GetBuilder<CategoryController>(builder: (categoryController) {
+                if (categoryController.getCategoryInProgress) {
+                  return const SizedBox(
+                    height: 90,
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    CategoryCardWidget(
-                      name: 'Electronics',
-                    ),
-                    CategoryCardWidget(
-                      name: 'Clothes',
-                    ),
-                    CategoryCardWidget(
-                      name: 'Grocery',
-                    ),
-                    CategoryCardWidget(
-                      name: 'Computer',
-                    ),
-                    CategoryCardWidget(
-                      name: 'Computer',
-                    ),
-                  ],
-                ),
-              ),
+                  );
+                }
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: categoryController.categoryModel.categories!
+                      .map((category) => CategoryCardWidget(
+                            name: category.categoryName.toString(),
+                            imageUrl: category.categoryImg.toString(),
+                            id: category.id ?? 0),
+                      ).toList(),
+                  ),
+                );
+              }),
               const SizedBox(
                 height: 16,
               ),
@@ -145,17 +145,25 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                  ],
-                ),
+              GetBuilder<PopularProductsController>(
+                builder: (popularProductsController) {
+                  if(popularProductsController.getPopularProductByRemarkInProgress){
+                    return const SizedBox(
+                      height: 90,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: popularProductsController.popularProductsModel.products!
+                          .map((product) => ProductCardWidget(product: product,),
+                      ).toList(),
+                    ),
+                  );
+                }
               ),
               const SizedBox(
                 height: 16,
@@ -167,17 +175,25 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                  ],
-                ),
+              GetBuilder<SpecialProductsController>(
+                builder: (specialProductsController) {
+                  if(specialProductsController.getSpecialProductByRemarkInProgress){
+                    return const SizedBox(
+                      height: 90,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: specialProductsController.specialProductsModel.products!
+                          .map((product) => ProductCardWidget(product: product,),
+                      ).toList(),
+                    ),
+                  );
+                }
               ),
               const SizedBox(
                 height: 16,
@@ -189,17 +205,25 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                    ProductCardWidget(),
-                  ],
-                ),
+              GetBuilder<NewProductsController>(
+                  builder: (newProductsController) {
+                    if(newProductsController.getNewProductByRemarkInProgress){
+                      return const SizedBox(
+                        height: 90,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: newProductsController.newProductsModel.products!
+                            .map((product) => ProductCardWidget(product: product,),
+                        ).toList(),
+                      ),
+                    );
+                  }
               ),
             ],
           ),

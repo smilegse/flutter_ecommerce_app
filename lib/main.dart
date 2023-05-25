@@ -3,12 +3,19 @@
 // State management - Getx
 // 1. UI + Functional 2. Statement management 3. Api integration
 
-import 'package:ecommerce_app/ui/state_managers/auth_controller.dart';
-import 'package:ecommerce_app/ui/state_managers/home_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/popular_products_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/wish_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'ui/screens/splash_screen.dart';
+import 'ui/state_managers/auth_controller.dart';
 import 'ui/state_managers/bottom_navigation_bar_controller.dart';
+import 'ui/state_managers/category_controller.dart';
+import 'ui/state_managers/home_controller.dart';
+import 'ui/state_managers/new_products_controller.dart';
+import 'ui/state_managers/product_controller.dart';
+import 'ui/state_managers/product_details_controller.dart';
+import 'ui/state_managers/special_products_controller.dart';
 import 'ui/state_managers/user_auth_controller.dart';
 import 'ui/state_managers/user_profile_controller.dart';
 import 'ui/utils/app_colors.dart';
@@ -77,6 +84,13 @@ class GetXBinding extends Bindings{
     Get.put(UserProfileController());
     Get.put(AuthController());
     Get.put(HomeController());
+    Get.put(CategoryController());
+    Get.put(PopularProductsController());
+    Get.put(NewProductsController());
+    Get.put(SpecialProductsController());
+    Get.put(ProductController());
+    Get.put(ProductDetailsController());
+    Get.put(WishListController());
 
   }
 

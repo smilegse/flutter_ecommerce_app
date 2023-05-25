@@ -1,10 +1,11 @@
-import 'package:ecommerce_app/ui/screens/reviews_create_screen.dart';
+
 import 'package:get/get.dart';
 
 import '../widgets/reviews_list/reviews_list_item_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
+import 'reviews_create_screen.dart';
 
 class ReviewsListScreen extends StatefulWidget {
   const ReviewsListScreen({Key? key}) : super(key: key);

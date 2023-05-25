@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/ui/state_managers/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
@@ -17,17 +18,33 @@ class CategoryScreen extends StatelessWidget {
             onPressed: () {
               Get.find<BottomNavigationBarController>().backToHome();
             },
-            icon: const Icon(Icons.arrow_back_outlined, color: greyColor,),
+            icon: const Icon(
+              Icons.arrow_back_outlined,
+              color: greyColor,
+            ),
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            itemCount: 30,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4
-            ), itemBuilder: (context, index) {
-              return const CategoryCardWidget(name: 'Dummy');
+          child: GetBuilder<CategoryController>(builder: (categoryController) {
+            if (categoryController.getCategoryInProgress) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return GridView.builder(
+                itemCount:
+                    categoryController.categoryModel.categories?.length ?? 0,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4),
+                itemBuilder: (context, index) {
+                  final category = categoryController.categoryModel.categories![index];
+                  return CategoryCardWidget(
+                    name: category.categoryName.toString(),
+                    imageUrl: category.categoryImg.toString(),
+                    id: category.id!,
+                  );
+                });
           }),
         ),
       ),

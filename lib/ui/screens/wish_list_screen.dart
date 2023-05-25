@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../state_managers/bottom_navigation_bar_controller.dart';
 import '../utils/app_colors.dart';
-import '../widgets/product_card_widget.dart';
 
 class WishListScreen extends StatelessWidget {
   const WishListScreen({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class WishListScreen extends StatelessWidget {
             childAspectRatio: 0.7,
           ),
           itemBuilder: (context, index) {
-            return ProductCardWidget();
+            return Text('product cart widget goes to here'); //ProductCardWidget(product: ,);
           },
         ),
       ),

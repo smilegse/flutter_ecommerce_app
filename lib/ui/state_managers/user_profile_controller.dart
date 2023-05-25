@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import '../../data/models/profile_model.dart';
 import '../../data/services/network_caller.dart';
@@ -26,6 +24,9 @@ class UserProfileController extends GetxController {
       update();
       return true;
     } else {
+      if (response.statusCode == 401) {
+        Get.find<AuthController>().logOut();
+      }
       update();
       return false;
     }

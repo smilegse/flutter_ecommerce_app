@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/models/profile_model.dart';
+import '../screens/email_verification_screen.dart';
 
 class AuthController extends GetxController {
   static String? _token;
@@ -38,6 +39,11 @@ class AuthController extends GetxController {
     _profileData = ProfileData.fromJson(
       jsonDecode(preference.getString('user_profile') ?? '{}'),
     );
+  }
+
+  Future<void> logOut() async {
+    await clearUserData();
+    Get.to(const EmailVerificationScreen());
   }
 
   Future<void> clearUserData() async {
