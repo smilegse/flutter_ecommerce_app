@@ -4,6 +4,7 @@
 // 1. UI + Functional 2. Statement management 3. Api integration
 
 import 'package:ecommerce_app/ui/state_managers/auth_controller.dart';
+import 'package:ecommerce_app/ui/state_managers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'ui/screens/splash_screen.dart';
@@ -75,6 +76,8 @@ class GetXBinding extends Bindings{
     Get.put(UserAuthController());
     Get.put(UserProfileController());
     Get.put(AuthController());
+    Get.put(HomeController());
+
   }
 
 }

@@ -1,13 +1,13 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
+import '../../../data/models/home_slider_model.dart';
 import '../../utils/app_colors.dart';
 
 class HomeCarouselWidget extends StatelessWidget {
-  HomeCarouselWidget({super.key});
-
-  final ValueNotifier<int> _carouselCurrentIndex = ValueNotifier(0);
+  HomeCarouselWidget({super.key, required this.homeSliderModel});
+  final HomeSliderModel homeSliderModel;
+  final ValueNotifier<int> _currentCarouselIndex = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +19,24 @@ class HomeCarouselWidget extends StatelessWidget {
             viewportFraction: 1,
             autoPlay: true,
             onPageChanged: (index, _) {
-              _carouselCurrentIndex.value = index;
-            },
-          ),
-          items: [1, 2, 3, 4, 5].map((i) {
+              _currentCarouselIndex.value = index;
+            }),
+          items: homeSliderModel.sliders!.map((slider) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.symmetric(horizontal: 1.0),
                   decoration: BoxDecoration(
                     color: primaryColor,
                     borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          slider.image ?? ''
+                      )
+                    )
                   ),
                   alignment: Alignment.center,
-                  child: Text(
-                    'text $i',
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
                 );
               },
             );
@@ -49,12 +46,12 @@ class HomeCarouselWidget extends StatelessWidget {
           height: 8,
         ),
         ValueListenableBuilder(
-          valueListenable: _carouselCurrentIndex,
+          valueListenable: _currentCarouselIndex,
           builder: (context, currentValue, _) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < (homeSliderModel.sliders?.length ?? 0); i++)
                   Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Container(

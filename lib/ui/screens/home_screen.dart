@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ecommerce_app/ui/state_managers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -83,7 +84,20 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16,
               ),
-              HomeCarouselWidget(),
+              GetBuilder<HomeController>(builder: (homeController) {
+                if(homeController.getSliderInProgress){
+                  return const SizedBox(
+                    height: 180,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                  return HomeCarouselWidget(
+                    homeSliderModel: homeController.homeSliderModel,
+                  );
+                }
+              ),
               const SizedBox(
                 height: 16,
               ),

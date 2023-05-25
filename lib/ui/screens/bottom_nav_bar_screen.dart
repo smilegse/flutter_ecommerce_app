@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
-import '../state_managers/user_profile_controller.dart';
+import '../state_managers/home_controller.dart';
 import '../utils/app_colors.dart';
 import 'cart_screen.dart';
 import 'category_screen.dart';
@@ -20,6 +20,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   @override
   void initState() {
     super.initState();
+    Get.find<HomeController>().getHomeSlider();
     //Get.find<UserProfileController>().getProfileData();
   }
 
@@ -29,6 +30,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     CartScreen(),
     WishListScreen()
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
