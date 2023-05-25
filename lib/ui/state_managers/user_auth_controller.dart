@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import '../../data/services/network_caller.dart';
 import 'auth_controller.dart';
@@ -35,7 +33,7 @@ class UserAuthController extends GetxController {
     _otpVerificationInProgress = false;
     if (response.isSuccess) {
       await Get.find<AuthController>().saveToken(response.returnData['data']);
-      Get.find<UserProfileController>().getProfileData();
+      await Get.find<UserProfileController>().getProfileData();
       update();
       return true;
     } else {

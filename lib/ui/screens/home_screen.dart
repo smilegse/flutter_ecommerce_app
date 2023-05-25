@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -49,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               iconData: Icons.person,
               onTap: () {
                 Get.find<AuthController>().isLoggedIn().then((value) {
+                  log(value.toString());
                   if (value) {
                     Get.to(const UserProfileScreen());
                   } else {

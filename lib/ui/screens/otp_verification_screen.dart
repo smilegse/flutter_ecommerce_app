@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:ecommerce_app/ui/screens/home_screen.dart';
-import 'package:ecommerce_app/ui/state_managers/auth_controller.dart';
 import 'package:ecommerce_app/ui/state_managers/user_auth_controller.dart';
 import 'package:ecommerce_app/ui/state_managers/user_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -108,14 +106,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       if (_formKey.currentState!.validate()) {
                         final response = await userAuthController.otpVerification(widget.email, _otpTEController.text);
                         if (response) {
-                          //await Get.find<UserProfileController>().getProfileData();
-                          await AuthController().getProfileData();
-                          //log(AuthController.profileData as String);
-                          if (AuthController.profileData != null) {
-                            Get.off(const HomeScreen());
-                          } else {
-                            Get.off(const CompleteProfileScreen());
-                          }
+                          Get.find<UserProfileController>().getProfileData().then((value) {
+                            if (value) {
+                              Get.to(const CompleteProfileScreen());
+                            } else {
+                              Get.to(const HomeScreen());
+                            }
+                          });
                         } else {
                           if (mounted) {
                             Get.showSnackbar(

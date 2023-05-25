@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import '../../data/models/profile_model.dart';
 import '../../data/services/network_caller.dart';
@@ -12,6 +14,7 @@ class UserProfileController extends GetxController {
     _getProfileDataInProgress = true;
     update();
     final response = await NetworkCaller.getRequest(url: '/ReadProfile');
+    //log(response.toString());
     _getProfileDataInProgress = false;
     if (response.isSuccess) {
       final ProfileModel profileModel = ProfileModel.fromJson(response.returnData);
