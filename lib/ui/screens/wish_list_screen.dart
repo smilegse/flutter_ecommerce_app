@@ -44,16 +44,21 @@ class _WishListScreenState extends State<WishListScreen> {
                 ),
               );
             }
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, childAspectRatio: 0.75),
-              itemCount:
-              wishListController.wishListModel.wishes?.length ?? 0,
-              itemBuilder: (context, index) {
-                return ProductCardWidget(
-                  product: wishListController.wishListModel.wishes![index].product!,
-                );
+            return RefreshIndicator(
+              onRefresh: () async{
+                await Get.find<WishListController>().getWishlist();
               },
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, childAspectRatio: 0.75),
+                itemCount:
+                wishListController.wishListModel.wishes?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return ProductCardWidget(
+                    product: wishListController.wishListModel.wishes![index].product!,
+                  );
+                },
+              ),
             );
           }
         ),

@@ -1,16 +1,14 @@
 import 'dart:developer';
-
-import 'package:ecommerce_app/ui/screens/product_see_all_by_remark_screen.dart';
-import 'package:ecommerce_app/ui/state_managers/home_controller.dart';
-import 'package:ecommerce_app/ui/state_managers/new_products_controller.dart';
-import 'package:ecommerce_app/ui/state_managers/popular_products_controller.dart';
-import 'package:ecommerce_app/ui/state_managers/special_products_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../state_managers/auth_controller.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
 import '../state_managers/category_controller.dart';
+import '../state_managers/home_controller.dart';
+import '../state_managers/new_products_controller.dart';
+import '../state_managers/popular_products_controller.dart';
+import '../state_managers/special_products_controller.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
 import '../widgets/home/home_carousel_widget.dart';
@@ -18,6 +16,7 @@ import '../widgets/home/remarks_title_widget.dart';
 import '../widgets/home/search_text_field_widget.dart';
 import '../widgets/product_card_widget.dart';
 import 'email_verification_screen.dart';
+import 'product_see_all_by_remark_screen.dart';
 import 'user_profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -56,11 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
             AppBarIconButton(
               iconData: Icons.person,
               onTap: () {
+                //Get.to(const UserProfileScreen());
                 Get.find<AuthController>().isLoggedIn().then((value) {
-                  log(value.toString());
                   if (value) {
+                    log('isLoggedIn == true ');
                     Get.to(const UserProfileScreen());
                   } else {
+                    log('isLoggedIn == false ');
                     Get.to(const EmailVerificationScreen());
                   }
                 });
@@ -128,11 +129,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: categoryController.categoryModel.categories!
-                      .map((category) => CategoryCardWidget(
-                            name: category.categoryName.toString(),
-                            imageUrl: category.categoryImg.toString(),
-                            id: category.id ?? 0),
-                      ).toList(),
+                        .map(
+                          (category) => CategoryCardWidget(
+                              name: category.categoryName.toString(),
+                              imageUrl: category.categoryImg.toString(),
+                              id: category.id ?? 0),
+                        )
+                        .toList(),
                   ),
                 );
               }),
@@ -149,25 +152,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 16,
               ),
               GetBuilder<PopularProductsController>(
-                builder: (popularProductsController) {
-                  if(popularProductsController.getPopularProductByRemarkInProgress){
-                    return const SizedBox(
-                      height: 90,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: popularProductsController.popularProductsModel.products!
-                          .map((product) => ProductCardWidget(product: product,),
-                      ).toList(),
+                  builder: (popularProductsController) {
+                if (popularProductsController
+                    .getPopularProductByRemarkInProgress) {
+                  return const SizedBox(
+                    height: 90,
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
                   );
                 }
-              ),
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children:
+                        popularProductsController.popularProductsModel.products!
+                            .map(
+                              (product) => ProductCardWidget(
+                                product: product,
+                              ),
+                            )
+                            .toList(),
+                  ),
+                );
+              }),
               const SizedBox(
                 height: 16,
               ),
@@ -181,25 +189,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 16,
               ),
               GetBuilder<SpecialProductsController>(
-                builder: (specialProductsController) {
-                  if(specialProductsController.getSpecialProductByRemarkInProgress){
-                    return const SizedBox(
-                      height: 90,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: specialProductsController.specialProductsModel.products!
-                          .map((product) => ProductCardWidget(product: product,),
-                      ).toList(),
+                  builder: (specialProductsController) {
+                if (specialProductsController
+                    .getSpecialProductByRemarkInProgress) {
+                  return const SizedBox(
+                    height: 90,
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
                   );
                 }
-              ),
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children:
+                        specialProductsController.specialProductsModel.products!
+                            .map(
+                              (product) => ProductCardWidget(
+                                product: product,
+                              ),
+                            )
+                            .toList(),
+                  ),
+                );
+              }),
               const SizedBox(
                 height: 16,
               ),
@@ -214,24 +227,27 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               GetBuilder<NewProductsController>(
                   builder: (newProductsController) {
-                    if(newProductsController.getNewProductByRemarkInProgress){
-                      return const SizedBox(
-                        height: 90,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: newProductsController.newProductsModel.products!
-                            .map((product) => ProductCardWidget(product: product,),
-                        ).toList(),
-                      ),
-                    );
-                  }
-              ),
+                if (newProductsController.getNewProductByRemarkInProgress) {
+                  return const SizedBox(
+                    height: 90,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: newProductsController.newProductsModel.products!
+                        .map(
+                          (product) => ProductCardWidget(
+                            product: product,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                );
+              }),
             ],
           ),
         ),

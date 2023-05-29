@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import '../../data/services/network_caller.dart';
 import 'auth_controller.dart';
@@ -28,15 +30,19 @@ class UserAuthController extends GetxController {
   Future<bool> otpVerification(String email, String otp) async {
     _otpVerificationInProgress = true;
     update();
-    final response =
-    await NetworkCaller.getRequest(url: '/VerifyLogin/$email/$otp');
+    final response = await NetworkCaller.getRequest(url: '/VerifyLogin/$email/$otp');
     _otpVerificationInProgress = false;
     if (response.isSuccess) {
+      //log('response == true');
       await Get.find<AuthController>().saveToken(response.returnData['data']);
-      await Get.find<UserProfileController>().getProfileData();
+      log('token: ${response.returnData['data']}');
+      Get.find<UserProfileController>().getProfileData();
+      log('getProfileData method call');
+
       update();
       return true;
     } else {
+      log('response == false');
       update();
       return false;
     }

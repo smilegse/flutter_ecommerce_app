@@ -4,7 +4,9 @@ import '../../utils/styles.dart';
 
 class ReviewListItemWidget extends StatelessWidget {
   const ReviewListItemWidget({
-    super.key, required this.name, required this.comments,
+    super.key,
+    required this.name,
+    required this.comments,
   });
 
   final String name;
@@ -19,6 +21,7 @@ class ReviewListItemWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -63,10 +66,12 @@ class ReviewListItemWidget extends StatelessWidget {
             ),
             Column(
               children: [
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 Text(
                   comments,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     color: lightGreyColor,
                   ),

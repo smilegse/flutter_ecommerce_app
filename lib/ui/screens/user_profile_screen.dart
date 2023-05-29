@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/ui/screens/bottom_nav_bar_screen.dart';
+import 'package:ecommerce_app/ui/state_managers/user_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../state_managers/auth_controller.dart';
@@ -14,6 +16,12 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Get.find<UserProfileController>().getProfileData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +54,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   height: 16,
                 ),
                 Text(
-                  '${AuthController.profileData?.firstName ?? 'Unknown'}  ${AuthController.profileData?.lastName ?? 'Unknown'}',
+                  '${AuthController.profileData?.profiles!.first.firstName ?? 'Unknown'}  ${AuthController.profileData?.profiles!.first.lastName ?? 'Unknown'}',
                   style: titleTextStyle,
                 ),
                 const SizedBox(
@@ -64,7 +72,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   height: 8,
                 ),
                 Text(
-                  '${AuthController.profileData?.shippingAddress ?? 'Unknown'} }',
+                  '${AuthController.profileData?.profiles!.first.shippingAddress ?? 'Unknown'} }',
                   style: const TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
@@ -72,21 +80,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   height: 16,
                 ),
                 Text(
-                  'City: ${AuthController.profileData?.city ?? 'Unknown'}',
+                  'City: ${AuthController.profileData?.profiles!.first.city ?? 'Unknown'}',
                   style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 Text(
-                  'Email: ${AuthController.profileData?.email ?? 'Unknown'}',
+                  'Email: ${AuthController.profileData?.profiles!.first.email ?? 'Unknown'}',
                   style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 Text(
-                  'Mobile: ${AuthController.profileData?.mobile ?? 'Unknown'}',
+                  'Mobile: ${AuthController.profileData?.profiles!.first.mobile ?? 'Unknown'}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: greyColor,
@@ -103,7 +111,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   title: 'Logout',
                   onTap: () {
                     Get.find<AuthController>().clearUserData();
-                    Get.to(const HomeScreen());
+                    Get.offAll(const HomeScreen());
                   },
                 ),
               ],

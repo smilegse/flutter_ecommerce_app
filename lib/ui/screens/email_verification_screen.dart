@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/ui/screens/otp_verification_screen.dart';
 import 'package:ecommerce_app/ui/state_managers/user_auth_controller.dart';
-import 'package:ecommerce_app/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utils/styles.dart';
@@ -76,9 +75,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         title: 'Next',
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            final bool response = await authController.emailVerification(_emailETController.text);
+                            final bool response = await authController
+                                .emailVerification(_emailETController.text);
                             if (response) {
-                              Get.to(OtpVerificationScreen(email: _emailETController.text));
+                              Get.to(OtpVerificationScreen(
+                                  email: _emailETController.text));
                             } else {
                               const GetSnackBar(
                                 title: 'Email Verification Failed',

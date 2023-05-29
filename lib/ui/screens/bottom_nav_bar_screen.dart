@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
@@ -21,7 +20,6 @@ class BottomNavBarScreen extends StatefulWidget {
 }
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -33,10 +31,10 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   }
 
   final List<Widget> _screen = [
-    HomeScreen(),
-    CategoryScreen(),
+    const HomeScreen(),
+    const CategoryScreen(),
     CartScreen(),
-    WishListScreen()
+    const WishListScreen()
   ];
 
   @override

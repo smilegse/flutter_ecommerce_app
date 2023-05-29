@@ -2,16 +2,16 @@ import 'profile.dart';
 
 class ReviewsModel {
   String? msg;
-  List<ReviewsData>? data;
+  List<ReviewsData>? reviews;
 
-  ReviewsModel({this.msg, this.data});
+  ReviewsModel({this.msg, this.reviews});
 
   ReviewsModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
     if (json['data'] != null) {
-      data = <ReviewsData>[];
+      reviews = <ReviewsData>[];
       json['data'].forEach((v) {
-        data!.add(ReviewsData.fromJson(v));
+        reviews!.add(ReviewsData.fromJson(v));
       });
     }
   }
@@ -19,8 +19,8 @@ class ReviewsModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['msg'] = msg;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (reviews != null) {
+      data['data'] = reviews!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -37,12 +37,12 @@ class ReviewsData {
 
   ReviewsData(
       {this.id,
-        this.description,
-        this.email,
-        this.productId,
-        this.createdAt,
-        this.updatedAt,
-        this.profile});
+      this.description,
+      this.email,
+      this.productId,
+      this.createdAt,
+      this.updatedAt,
+      this.profile});
 
   ReviewsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -52,11 +52,11 @@ class ReviewsData {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     profile =
-    json['profile'] != null ? new Profile.fromJson(json['profile']) : null;
+        json['profile'] != null ? Profile.fromJson(json['profile']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['description'] = description;
     data['email'] = email;

@@ -1,15 +1,16 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../data/models/profile.dart';
+import '../../data/models/profile_model.dart';
 import '../screens/email_verification_screen.dart';
 
 class AuthController extends GetxController {
   static String? _token;
-  static Profile? _profileData;
+  static ProfileModel? _profileData;
 
   static String? get token => _token;
-  static Profile? get profileData => _profileData;
+  static ProfileModel? get profileData => _profileData;
 
   Future<bool> isLoggedIn() async {
     await getToken();
@@ -23,10 +24,12 @@ class AuthController extends GetxController {
     preference.setString('token', userToken);
   }
 
-  Future<void> saveProfileData(Profile profile) async {
+  Future<void> saveProfileData(ProfileModel profileModel) async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    _profileData = profile;
-    await preference.setString('user_profile', profile.toJson().toString());
+    log('saveProfileData');
+    log(profileModel.toString());
+    _profileData = profileModel;
+    await preference.setString('user_profile', profileModel.toJson().toString());
   }
 
   Future<void> getToken() async {
@@ -36,7 +39,7 @@ class AuthController extends GetxController {
 
   Future<void> getProfileData() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    _profileData = Profile.fromJson(
+    _profileData = ProfileModel.fromJson(
       jsonDecode(preference.getString('user_profile') ?? '{}'),
     );
   }
@@ -50,4 +53,13 @@ class AuthController extends GetxController {
     SharedPreferences preference = await SharedPreferences.getInstance();
     await preference.clear();
   }
+
+  Future<bool> checkAuthValidation() async {
+    final authState = await Get.find<AuthController>().isLoggedIn();
+   if(authState == false){
+     Get.to(const EmailVerificationScreen());
+   }
+    return authState;
+  }
+
 }

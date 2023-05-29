@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'package:ecommerce_app/ui/screens/otp_verification_screen.dart';
+import 'package:ecommerce_app/ui/screens/user_profile_screen.dart';
 import 'package:get/get.dart';
 import '../../data/models/profile_model.dart';
 import '../../data/services/network_caller.dart';
@@ -12,24 +15,28 @@ class UserProfileController extends GetxController {
     _getProfileDataInProgress = true;
     update();
     final response = await NetworkCaller.getRequest(url: '/ReadProfile');
-    //log(response.toString());
     _getProfileDataInProgress = false;
     if (response.isSuccess) {
+      log('ReadProfile API - response:  ${response.returnData.toString()}');
       final ProfileModel profileModel = ProfileModel.fromJson(response.returnData);
-      if (profileModel.data != null) {
-        Get.find<AuthController>().saveProfileData(profileModel.data!.first);
+      log('profileModel - fromJson:  ${profileModel.msg.toString()}');
+      if (profileModel.profiles!.isNotEmpty) {
+        log('profile is not empty');
+        Get.find<AuthController>().saveProfileData(profileModel);
       } else {
-        //Get.to(const EmailVerificationScreen());
+        log('profile is empty');
+        Get.to(const UserProfileScreen());
       }
       update();
       return true;
     } else {
-      // if (response.statusCode == 401) {
-      //   Get.find<AuthController>().logOut();
-      // }
+      log('read profile failed');
+      if (response.statusCode == 401) {
+        Get.find<AuthController>().clearUserData();
+        //log('logOut');
+      }
       update();
       return false;
     }
   }
-
 }
