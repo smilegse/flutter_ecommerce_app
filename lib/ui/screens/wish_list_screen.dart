@@ -18,7 +18,9 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<WishListController>().getWishlist();
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      await Get.find<WishListController>().getWishlist();
+    });
   }
 
   @override
@@ -37,11 +39,8 @@ class _WishListScreenState extends State<WishListScreen> {
         body: GetBuilder<WishListController>(
           builder: (wishListController) {
             if(wishListController.getWishListInProgress){
-              return const SizedBox(
-                height: 90,
-                child: Center(
+              return const Center(
                   child: CircularProgressIndicator(),
-                ),
               );
             }
             return RefreshIndicator(

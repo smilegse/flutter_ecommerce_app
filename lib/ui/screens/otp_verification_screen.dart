@@ -8,7 +8,6 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../utils/app_colors.dart';
 import '../utils/styles.dart';
 import '../widgets/common_elevated_button_widget.dart';
-import 'home_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({Key? key, required this.email})
@@ -107,13 +106,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           if (_formKey.currentState!.validate()) {
                             final response = await userAuthController.otpVerification(widget.email, _otpTEController.text);
                             if (response) {
-                              log('login OTP = true');
-                              Get.offAll(const HomeScreen());
+                              log('login succeed');
+                              Get.offAll(const BottomNavBarScreen());
                             } else {
-                              log('login OTP = false');
+                              log('login failed');
                               Get.showSnackbar(
                                 const GetSnackBar(
-                                  title: 'Otp Verification Failed',
+                                  title: 'Otp Verification Failed!',
                                   message: 'Check once again before enter your OTP',
                                   duration: Duration(seconds: 3,),
                                 ),

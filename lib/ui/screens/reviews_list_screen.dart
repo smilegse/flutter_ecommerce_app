@@ -20,7 +20,9 @@ class _ReviewsListScreenState extends State<ReviewsListScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<ReviewsController>().getReviewsByProductId(widget.productId);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Get.find<ReviewsController>().getReviewsByProductId(widget.productId);
+    });
   }
 
   @override
@@ -38,79 +40,91 @@ class _ReviewsListScreenState extends State<ReviewsListScreen> {
             child: CircularProgressIndicator(),
           );
         }
-        return Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: reviewsController.reviewsModel.reviews?.length ?? 0,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: ReviewListItemWidget(
-                      name:
-                          '${reviewsController.reviewsModel.reviews![index].profile!.firstName ?? 'Unknown'}  ${reviewsController.reviewsModel.reviews![index].profile!.lastName ?? 'Unknown'}',
-                      comments: reviewsController
-                          .reviewsModel.reviews![index].description!,
-                    ),
-                  );
-                },
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              decoration: BoxDecoration(
-                color: primaryColor.withOpacity(0.15),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
+        return RefreshIndicator(
+          onRefresh: () async{
+            await Get.find<ReviewsController>().getReviewsByProductId(widget.productId);
+          },
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: reviewsController.reviewsModel.reviews?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ReviewListItemWidget(
+                        name:
+                            '${reviewsController.reviewsModel.reviews![index].profile!.firstName ?? 'Unknown'}  ${reviewsController.reviewsModel.reviews![index].profile!.lastName ?? 'Unknown'}',
+                        comments: reviewsController
+                            .reviewsModel.reviews![index].description!,
+                      ),
+                    );
+                  },
                 ),
               ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Reviews (${reviewsController.reviewsModel.reviews!.length})',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: greyColor,
+              Container(
+                margin: const EdgeInsets.only(top: 16),
+                decoration: BoxDecoration(
+                  color: primaryColor.withOpacity(0.15),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Reviews (${reviewsController.reviewsModel.reviews!.length})',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: greyColor,
+                            ),
                           ),
+                        ],
+                      ),
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(64),
+                          color: primaryColor,
                         ),
-                      ],
-                    ),
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(64),
-                        color: primaryColor,
+                        child: IconButton(
+                          icon: const Icon(Icons.add),
+                          color: Colors.white,
+                          iconSize: 32,
+                          onPressed: () async {
+                            await Get.find<AuthController>().getToken();
+                            if (AuthController.token!.isNotEmpty) {
+                              Get.to(ReviewsCreateScreen(
+                                productId: widget.productId,
+                              ));
+                            }else {
+                              const GetSnackBar(
+                                title: 'Reviews Notification',
+                                message: 'Need login',
+                                duration: Duration(
+                                  seconds: 3,
+                                ),
+                              );
+                            }
+                          },
+                        ),
                       ),
-                      child: IconButton(
-                        icon: const Icon(Icons.add),
-                        color: Colors.white,
-                        iconSize: 32,
-                        onPressed: () async {
-                          final result = await Get.find<AuthController>()
-                              .checkAuthValidation();
-                          if (result) {
-                            Get.to(ReviewsCreateScreen(
-                              productId: widget.productId,
-                            ));
-                          }
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       }),
     );

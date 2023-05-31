@@ -14,27 +14,25 @@ class AuthController extends GetxController {
 
   Future<bool> isLoggedIn() async {
     await getToken();
-    await getProfileData();
+    //await getProfileData();
     return _token != null;
   }
 
   Future<void> saveToken(String userToken) async {
     SharedPreferences preference = await SharedPreferences.getInstance();
     _token = userToken;
-    preference.setString('token', userToken);
+    await preference.setString('user_token', userToken);
+  }
+  Future<void> getToken() async {
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    _token = preference.getString('user_token');
   }
 
   Future<void> saveProfileData(ProfileModel profileModel) async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    log('saveProfileData');
-    log(profileModel.toString());
+    log('saveProfileData into SharePreference');
     _profileData = profileModel;
     await preference.setString('user_profile', profileModel.toJson().toString());
-  }
-
-  Future<void> getToken() async {
-    SharedPreferences preference = await SharedPreferences.getInstance();
-    _token = preference.getString('token');
   }
 
   Future<void> getProfileData() async {

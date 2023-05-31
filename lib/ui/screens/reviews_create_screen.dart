@@ -1,6 +1,6 @@
-import 'package:ecommerce_app/ui/state_managers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../state_managers/auth_controller.dart';
 import '../state_managers/reviews_controller.dart';
 import '../utils/app_colors.dart';
 import '../widgets/common_elevated_button_widget.dart';
@@ -26,8 +26,11 @@ class _ReviewsCreateScreenState extends State<ReviewsCreateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Review'),
+        title: const Text('Create Reviews'),
         leading: const BackButton(
+          // onPressed: (){
+          //   Get.off(ReviewsListScreen(productId: widget.productId));
+          // },
           color: greyColor,
         ),
       ),
@@ -91,8 +94,7 @@ class _ReviewsCreateScreenState extends State<ReviewsCreateScreen> {
                         title: 'Submit',
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            final result = await Get.find<AuthController>()
-                                .checkAuthValidation();
+                            final result = await Get.find<AuthController>().checkAuthValidation();
                             if (result) {
                               reviewsController.createProductReviews(
                                 {
@@ -104,19 +106,12 @@ class _ReviewsCreateScreenState extends State<ReviewsCreateScreen> {
                                   _firstNameTEController.clear();
                                   _lastNameTEController.clear();
                                   _reviewsTEController.clear();
-                                  const GetSnackBar(
-                                    title: 'Reviews Notification',
-                                    message: 'Reviews has been added!',
-                                    duration: Duration(
-                                      seconds: 3,
-                                    ),
-                                  );
                                 } else {
                                   const GetSnackBar(
                                     title: 'Reviews Notification',
                                     message: 'Reviews added failed!',
                                     duration: Duration(
-                                      seconds: 3,
+                                      seconds: 5,
                                     ),
                                   );
                                 }

@@ -16,6 +16,7 @@ import '../widgets/home/remarks_title_widget.dart';
 import '../widgets/home/search_text_field_widget.dart';
 import '../widgets/product_card_widget.dart';
 import 'email_verification_screen.dart';
+import 'notification_screen.dart';
 import 'product_see_all_by_remark_screen.dart';
 import 'user_profile_screen.dart';
 
@@ -27,18 +28,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  _makingPhoneCall() async {
+
+  void makingPhoneCall() async {
     var url = Uri.parse("tel:01780494949");
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -55,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
             AppBarIconButton(
               iconData: Icons.person,
               onTap: () {
-                //Get.to(const UserProfileScreen());
                 Get.find<AuthController>().isLoggedIn().then((value) {
                   if (value) {
                     log('isLoggedIn == true ');
@@ -69,13 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             AppBarIconButton(
               iconData: Icons.call,
-              onTap: () {
-                _makingPhoneCall();
+              onTap: () async {
+                makingPhoneCall();
               },
             ),
             AppBarIconButton(
               iconData: Icons.notifications_none,
-              onTap: () {},
+              onTap: () {
+                Get.to(const NotificationScreen());
+              },
             ),
           ],
         ),

@@ -23,18 +23,22 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<HomeController>().getHomeSlider();
-    Get.find<CategoryController>().getCategories();
-    Get.find<PopularProductsController>().getPopularProductsByRemark();
-    Get.find<NewProductsController>().getNewProductsByRemark();
-    Get.find<SpecialProductsController>().getSpecialProductsByRemark();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<HomeController>().getHomeSlider();
+      Get.find<CategoryController>().getCategories();
+      Get.find<PopularProductsController>().getPopularProductsByRemark();
+      Get.find<NewProductsController>().getNewProductsByRemark();
+      Get.find<SpecialProductsController>().getSpecialProductsByRemark();
+    });
+
   }
 
   final List<Widget> _screen = [
-    const HomeScreen(),
-    const CategoryScreen(),
+    HomeScreen(),
+    CategoryScreen(),
     CartScreen(),
-    const WishListScreen()
+    WishListScreen()
   ];
 
   @override

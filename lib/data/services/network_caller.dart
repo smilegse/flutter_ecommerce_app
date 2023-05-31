@@ -11,9 +11,8 @@ class NetworkCaller {
 
   static Future<ResponseModel> getRequest({required String url}) async {
     try {
-      log(AuthController.token.toString());
-      final Response response = await get(
-        Uri.parse(Urls.baseUrl + url),
+      log('network_caller getRequest token: ${AuthController.token ?? ''}');
+      final Response response = await get(Uri.parse(Urls.baseUrl + url),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -41,11 +40,12 @@ class NetworkCaller {
   static Future<ResponseModel> postRequest(
       {required String url, required Map<String, dynamic>? body}) async {
     try {
+      log('network_caller postRequest token: ${AuthController.token ?? ''}');
       final Response response = await post(Uri.parse(Urls.baseUrl + url),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
-          'token': AuthController.token.toString(),
+          'token': AuthController.token ?? '',
         },
         body: jsonEncode(body));
 
