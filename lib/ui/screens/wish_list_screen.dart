@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../state_managers/bottom_navigation_bar_controller.dart';
@@ -55,6 +54,7 @@ class _WishListScreenState extends State<WishListScreen> {
                 itemBuilder: (context, index) {
                   return ProductCardWidget(
                     product: wishListController.wishListModel.wishes![index].product!,
+                    onRemove: () {},
                   );
                 },
               ),

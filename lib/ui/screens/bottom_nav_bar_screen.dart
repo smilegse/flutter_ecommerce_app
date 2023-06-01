@@ -24,13 +24,11 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<HomeController>().getHomeSlider();
       Get.find<CategoryController>().getCategories();
       Get.find<PopularProductsController>().getPopularProductsByRemark();
       Get.find<NewProductsController>().getNewProductsByRemark();
       Get.find<SpecialProductsController>().getSpecialProductsByRemark();
-    });
 
   }
 

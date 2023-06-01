@@ -21,7 +21,7 @@ class HomeCarouselWidget extends StatelessWidget {
             onPageChanged: (index, _) {
               _currentCarouselIndex.value = index;
             }),
-          items: homeSliderModel.sliders!.map((slider) {
+          items: (homeSliderModel.sliders?.isEmpty?? true) ? [] : homeSliderModel.sliders!.map((slider) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
